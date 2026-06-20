@@ -1,4 +1,4 @@
-# 🔁 Asynchronous FIFO (CDC-Safe, Gray-Code Pointer Design)
+#  Asynchronous FIFO (CDC-Safe, Gray-Code Pointer Design)
 
 A modular, parameterized asynchronous FIFO written in Verilog for safely transferring data
 between two unrelated clock domains. Built around the industry-standard approach from Clifford
@@ -7,7 +7,7 @@ full/empty flag generation.
 
 ---
 
-## 📐 Why This Exists — CDC & Metastability
+##  Why This Exists — CDC & Metastability
 
 When a signal crosses from one clock domain to another, sampling it on an unrelated clock edge
 can catch it mid-transition, causing **metastability** — the flip-flop output briefly hovers
@@ -26,7 +26,7 @@ either the old or the new value — never garbage.
 
 ---
 
-## ⚙️ Design Approach
+##  Design Approach
 
 - **Dual binary + Gray pointer per side** — the binary pointer addresses memory directly (no
   decode logic in the critical path); the Gray pointer is the one that crosses clock domains.
@@ -41,11 +41,11 @@ either the old or the new value — never garbage.
   risking overflow/underflow.
 - Memory is a simple dual-port array: synchronous write on `wclk`, combinational read on `rclk`.
 
-![Architecture](images/Architecture.png)
+![Architecture](Architecture.png)
 
 ---
 
-## 📦 Module List
+##  Module List
 
 | Module | Description |
 |---|---|
@@ -62,7 +62,7 @@ either the old or the new value — never garbage.
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
 **Simple testbench** (depth-4 FIFO, write all 4 words, then read all 4 back):
 ```bash
@@ -80,7 +80,7 @@ gtkwave async_fifo_final.vcd
 
 ---
 
-## 🧪 Testbenches
+##  Testbenches
 
 ### 1. Simple Testbench — `tb_simple_async_fifo`
 Writes 4 words (`0xA5, 0x5A, 0xFF, 0x00`) back to back, confirms `wfull` asserts on the 4th
@@ -88,7 +88,7 @@ write and blocks a 5th, then reads all 4 back and confirms `rempty` asserts afte
 and blocks a 5th. No interleaving — purpose is just to sanity-check basic data flow and flag
 behavior before moving to harder cases.
 
-![Simple Testbench Waveform](images/simple_waveform.png)
+![Simple Testbench Waveform](simple_waveform.png)
 
 ### 2. Full Testbench — `tb_async_fifo`
 Eight sections, run in sequence:
@@ -104,11 +104,11 @@ Eight sections, run in sequence:
 Each section prints a PASS/FAIL based on flag state, and internal pointer/Gray-sync values can
 be dumped via a debug macro for CDC verification.
 
-![Full Testbench Waveform](images/main_waveform.png)
+![Full Testbench Waveform](main waveform.png)
 
 ---
 
-## 🚧 Known Limitations
+##  Known Limitations
 
 - Full/empty flag clearing is intentionally delayed by a few cycles (pessimistic) — not a bug,
   but means back-to-back ops right at the boundary may stall slightly longer than necessary.
@@ -118,7 +118,7 @@ be dumped via a debug macro for CDC verification.
 
 ---
 
-## 🛣️ Future Improvements
+##  Future Improvements
 
 - Add `almost_full` / `almost_empty` programmable threshold flags.
 - Swap `fifo_mem` for vendor BRAM/SRAM macros for synthesis.
@@ -129,7 +129,7 @@ be dumped via a debug macro for CDC verification.
 
 ---
 
-## 📚 Repo Structure
+##  Repo Structure
 
 ```
 async_fifo/
