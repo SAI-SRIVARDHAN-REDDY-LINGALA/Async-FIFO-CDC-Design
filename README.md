@@ -104,7 +104,7 @@ Eight sections, run in sequence:
 Each section prints a PASS/FAIL based on flag state, and internal pointer/Gray-sync values can
 be dumped via a debug macro for CDC verification.
 
-![Full Testbench Waveform](main waveform.png)
+![Full Testbench Waveform](main_waveform.png)
 
 ---
 
